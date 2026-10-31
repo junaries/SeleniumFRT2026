@@ -8,11 +8,6 @@ public class AmazonSearchPage extends BasePage {
     private String addToCartButton = "//input[@id='add-to-cart-button']";
     private String addedMessageText = "//*[contains(text(),'Agregado al carrito')]";
 
-
-    public AmazonSearchPage(){
-        super(driver);
-    } 
-
     public void navigateToAmazon(){
         navigateTo("https://www.amazon.com/");
     }
