@@ -10,9 +10,8 @@ public class ListPage extends BasePage {
     private String searchField = "//body/form[1]/input[1]";
     private String searchResults = "name";
 
-    public ListPage(){
-        super(driver);
-    }
+    // El constructor se ha eliminado por completo. 
+    // Java usará el constructor por defecto que llama a super() sin argumentos.
 
     public void navigateToListPage(){
         navigateTo("https://andreidbr.github.io/JS30/06AjaxTypeAhead/index.html");
@@ -20,9 +19,9 @@ public class ListPage extends BasePage {
     
     public void enterSearchCriteria(String state) throws InterruptedException {
         try{
-        Thread.sleep(600);
-        write(searchField, state);
-        }catch(NoSuchElementException e){
+            Thread.sleep(600);
+            write(searchField, state);
+        } catch(NoSuchElementException e){
             System.out.println("The WebElement Search Field couldn't be found.");
             e.printStackTrace();
         }
@@ -32,7 +31,7 @@ public class ListPage extends BasePage {
         List<WebElement> list = bringMeAllElements(searchResults);
         List<String> stringsFromList = new ArrayList<String>();
 
-        for(WebElement e :list){
+        for(WebElement e : list){
             stringsFromList.add(e.getText());
         }
         return stringsFromList;
