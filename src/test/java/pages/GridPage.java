@@ -6,9 +6,8 @@ public class GridPage extends BasePage {
     private String mainTable = "//*[@id='root']/div/table";
     private String allCellsInTable = "//tbody/tr";
 
-    public GridPage(){
-        super(driver);
-    }
+    // El constructor se ha eliminado por completo. 
+    // Java usará el constructor por defecto que llama a super() sin argumentos.
 
     public void navigateToGrid(){
         navigateTo("https://1v2njkypo4.csb.app");
@@ -21,5 +20,4 @@ public class GridPage extends BasePage {
     public boolean cellStatus(){
         return elementIsDisplayed(mainTable);
     }
-
 }
