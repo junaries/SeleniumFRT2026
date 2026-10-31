@@ -6,16 +6,15 @@ public class TradeMePage extends BasePage {
     private String searchButton = "//button[@type='submit']";
     private String resultsLabel = "//h3[@class='tm-search-header-result-count__heading ng-star-inserted']";
 
-    public TradeMePage(){
-        super(driver);
-    }
+    // El constructor se ha eliminado por completo. 
+    // Java usará el constructor por defecto que llama a super() sin argumentos.
 
     public void navigateToTradeMeMotor(){
         navigateTo("https://www.trademe.co.nz/a/motors");
     }
 
     public void selectMakeFromDropdown(String make){
-        selectFromDropdownByText(makeDropdown,make);
+        selectFromDropdownByText(makeDropdown, make);
     }
 
     public void clickSearch(){
@@ -29,7 +28,4 @@ public class TradeMePage extends BasePage {
     public String resultsAmount(){
         return textFromElement(resultsLabel);
     }
-
-    
-    
 }
