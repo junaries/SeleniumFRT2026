@@ -21,9 +21,16 @@ public class BasePage {
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
   
     static {
-        ChromeOptions chromeOptions = new ChromeOptions();
-        driver = new ChromeDriver(chromeOptions);
-        
+    ChromeOptions chromeOptions = new ChromeOptions();
+    
+    // Configuración para Jenkins (sin pantalla)
+    chromeOptions.addArguments("--headless=new");          
+    chromeOptions.addArguments("--no-sandbox");            
+    chromeOptions.addArguments("--disable-dev-shm-usage"); 
+    chromeOptions.addArguments("--disable-gpu");           
+    chromeOptions.addArguments("--window-size=1920,1080"); 
+    
+    driver = new ChromeDriver(chromeOptions);
     }
 
     public BasePage(WebDriver driver){
