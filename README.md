@@ -1,61 +1,60 @@
-# Selenium WebDriver con Java y Cucumber — starter
+Goal of this repository
 
-Este repositorio deja lista la infraestructura del curso. No contiene el framework ni la solución de los ejercicios: los vas a construir durante las clases.
+Template framework to start Automating with Selenium and Cucumber both on UI and API (Java).
 
-## Prerrequisitos
+Index
 
-- JDK 21 (comprobá que `JAVA_HOME` apunte a ese JDK).
-- Google Chrome.
-- Git.
-- VS Code recomendado, con el Extension Pack for Java sugerido al abrir el proyecto.
+Technologies
+Setup
+Page Object Model
+Features and Cucumber
+Base Page
+Running the tests
+Reports
+Technologies
 
-No hace falta instalar Gradle globalmente: el repositorio incluye Gradle Wrapper 9.6.1.
+This project was created with:
 
-## Crear y clonar tu repositorio
+Selenium WebDriver: To interact with WebElements on the Webpage.
+Java: As the programming language.
+Cucumber: To write test scenarios as Behaviour Driven Development features and collaborate with Business Analysts.
+Extent Reports: To generate HTML reports.
+Gradle: as building tool.
+Setup
 
-1. En GitHub, pulsá **Use this template** y luego **Create a new repository**.
-2. Elegí el nombre y la visibilidad. **No selecciones “Include all branches”.**
-3. Copiá la URL de tu repositorio y clonalo:
+Install JDK (latest stable version).
+Download the WebDrivers you will use in your project.
+If using Windows, specify the path to the driver in BasePage.java like
+System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+If you are on MacOS:
+Open up Terminal
+Run sudo nano /etc/paths
+Enter your password
+Go to the bottom of the file and enter the path you wish to add (My PATH looks like: /Users/myname/Documents/WebDriver)
+Control-x to quit
+Y to save
+Press enter to confirm
+To double check, quit Terminal and relaunch it. Run echo $PATH. You should see your newly added path in the stream of other paths already there.
+Finally, update your tests to run using Chrome and run your tests!
+Install the Cucumber plugin on your IDE of choice.
+Build the project to download the dependencies specified on Gradle.build.
+## Page Object Model This Framework uses the Page Object Model, with a BasePage taking care of creating the instance of the Driver and inheriting methods to interact with the WebElements on the classes within the Pages directory.
 
-```bash
-git clone URL_DE_TU_REPOSITORIO
-cd NOMBRE_DE_TU_REPOSITORIO
-```
+Features and Cucumber
 
-Si no tenés cuenta de GitHub, podés usar **Code → Download ZIP**, descomprimir el archivo y abrir esa carpeta. En ese caso no tendrás historial ni sincronización mediante Git.
+The features with the scenarios containing the actual tests should act as a Live Documentation. Avoid using the scenarios to describe vaguely what they are trying to achieve. Crosscheck or get a peer to review the scenario, preferably a Business Analyst (even better if they can write the scenarios and provide them to you, the Test Engineer)
 
-## Verificar el entorno
+Base Page
 
-En macOS o Linux:
+The BasePage.java is the class where the driver and the methods to interact with the webpages live. The wait is set once in here and used smart, proceeding with the actions in case the element is found and waiting until the treshold set in this class. You can change this to fit your needs.
 
-```bash
-java -version
-./gradlew --version
-./gradlew doctor
-./gradlew test
-```
+## Running the tests To run the tests, you have two options:
 
-En Windows (PowerShell o Símbolo del sistema):
+Running from a Runner.java , specifying which tag to run (you set the tags in the Scenarios).
+Running from the command line and using:
+gradle test -Dcucumber.options="--tags @CucumberTag"
+Observe that the "test" task is created in the Gradle.Build file.
 
-```bat
-java -version
-gradlew.bat --version
-gradlew.bat doctor
-gradlew.bat test
-```
+Reports
 
-`SetupCheckTest` crea `ChromeDriver` sin indicar una ruta de driver, deja que Selenium Manager lo resuelva, abre Chrome, carga contenido local, comprueba el título con TestNG y siempre cierra el navegador.
-
-## Problemas frecuentes
-
-- **Java no es 21:** instalá JDK 21 y volvé a abrir la terminal.
-- **`JAVA_HOME` incorrecto:** hacelo apuntar a la carpeta del JDK 21 y comprobá de nuevo `java -version`.
-- **`Permission denied` al usar `gradlew`:** ejecutá `chmod +x gradlew`.
-- **Chrome no está instalado:** instalalo y repetí `./gradlew test`.
-- **Selenium Manager no puede resolver ChromeDriver:** revisá la conexión, proxy o firewall; luego repetí el test. No descargues ni configures ChromeDriver manualmente.
-
-## Qué está preparado y qué vas a construir
-
-El starter ya incluye Java Toolchain 21, Gradle Wrapper, Selenium, Cucumber integrado con TestNG, descubrimiento de tests y el diagnóstico `doctor`.
-
-Durante el curso vas a crear los feature files, escenarios, step definitions, hooks, Page Objects y el resto del framework. Nada de eso viene resuelto acá.
+Once executed, you will find the reports inside the Test-output directory, containing an HTML file that you can open with any browser and access the report with the results.
