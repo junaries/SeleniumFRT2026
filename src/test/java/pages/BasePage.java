@@ -13,29 +13,33 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-
 public class BasePage {
 
     protected static WebDriver driver;
     private static Actions action;
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    
+    // 1. SOLO declaramos la variable, NO le damos valor todavía
+    private static WebDriverWait wait; 
   
     static {
-    ChromeOptions chromeOptions = new ChromeOptions();
-    
-    // Configuración para Jenkins (sin pantalla)
-    chromeOptions.addArguments("--headless=new");          
-    chromeOptions.addArguments("--no-sandbox");            
-    chromeOptions.addArguments("--disable-dev-shm-usage"); 
-    chromeOptions.addArguments("--disable-gpu");           
-    chromeOptions.addArguments("--window-size=1920,1080"); 
-    
-    driver = new ChromeDriver(chromeOptions);
+        ChromeOptions chromeOptions = new ChromeOptions();
+        
+        // 2. Configuración para Jenkins (sin pantalla)
+        chromeOptions.addArguments("--headless=new");          
+        chromeOptions.addArguments("--no-sandbox");            
+        chromeOptions.addArguments("--disable-dev-shm-usage"); 
+        chromeOptions.addArguments("--disable-gpu");           
+        chromeOptions.addArguments("--window-size=1920,1080"); 
+        
+        // 3. PRIMERO creamos el driver
+        driver = new ChromeDriver(chromeOptions);
+        
+        // 4. AHORA SÍ creamos el wait, porque 'driver' YA tiene un valor real
+        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public BasePage(WebDriver driver){
         BasePage.driver = driver;
-        
     }
 
     public static void navigateTo(String url){
