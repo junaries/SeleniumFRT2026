@@ -7,24 +7,18 @@ import io.cucumber.java.After;
 import io.cucumber.java.Scenario;
 import pages.BasePage;
 
-public class Hooks extends BasePage{
+public class Hooks extends BasePage {
 
-    public Hooks() {
-        super(driver);
-    }
+    // El constructor se ha eliminado por completo. 
+    // Java usará el constructor por defecto que llama a super() sin argumentos.
 
     @After
     public void tearDown(Scenario scenario) {
-    if(scenario.isFailed()){
-        scenario.log("Scenario fallando, referirse a la imagen adjunta.");
-        final byte[] screenshot = ((TakesScreenshot) driver)
+        if (scenario.isFailed()) {
+            scenario.log("Scenario fallando, referirse a la imagen adjunta.");
+            final byte[] screenshot = ((TakesScreenshot) driver)
                     .getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png", "Screenshot of the error");
-       
-        
-    }   
-}
-
-    
-    
+            scenario.attach(screenshot, "image/png", "Screenshot of the error");
+        }
+    }
 }
