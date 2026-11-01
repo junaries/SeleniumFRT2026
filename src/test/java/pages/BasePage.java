@@ -29,7 +29,10 @@ public class BasePage {
         chromeOptions.addArguments("--no-sandbox");            
         chromeOptions.addArguments("--disable-dev-shm-usage"); 
         chromeOptions.addArguments("--disable-gpu");           
-        chromeOptions.addArguments("--window-size=1920,1080"); 
+        chromeOptions.addArguments("--window-size=1920,1080");
+
+        // ← AÑADIR ESTA LÍNEA: Ruta explícita a Chrome en Windows
+        chromeOptions.setBinary("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe");
         
         // 3. PRIMERO creamos el driver
         driver = new ChromeDriver(chromeOptions);
