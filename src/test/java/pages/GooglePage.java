@@ -2,8 +2,8 @@ package pages;
 
 public class GooglePage extends BasePage {
 
-    private String searchButton = "//input[@value='Buscar con Google']";
-    private String searchTextField = "//input[@title='Buscar']";
+    private String searchTextField = "//input[@name='q']";
+    private String searchButton = "//button[@name='btnK']"; // El botón "Buscar" también tiene un name universal
     
     // ⚠️ OJO: Aquí tenías el string vacío. He puesto un XPath real para el primer resultado de Google, 
     // de lo contrario el test compilará pero fallará al no encontrar el elemento.
