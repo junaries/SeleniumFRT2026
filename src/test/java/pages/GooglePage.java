@@ -1,27 +1,39 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
 public class GooglePage extends BasePage {
 
-    private String searchTextField = "//input[@name='q']";
+    // Busca CUALQUIER elemento (input o textarea) con name='q'
+    private String searchTextField = "//*[@name='q']";
+    
+    // Botón de "Aceptar todo" o "Accept all" del banner de cookies de Google
+    private String consentButton = "//button[contains(., 'Aceptar') or contains(., 'Accept')]";
+    
     private String firstResult = "(//h3)[1]";
 
     public void navigateToGoogle(){
-        // /ncr evita redirecciones por país y acelera la carga limpia
         navigateTo("https://www.google.com/ncr");
         
-        // BLINDAJE: Forzamos a Selenium a esperar a que el campo de búsqueda exista en el DOM
-        // antes de dar por buena la navegación.
+        // 1. TRUCO PARA EUROPA: Intentar cerrar el banner de cookies si aparece
+        try {
+            // Esperamos solo 3 segundos por el banner. Si no está, salta al catch y sigue.
+            WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+            shortWait.until(ExpectedConditions.elementToBeClickable(By.xpath(consentButton))).click();
+            System.out.println("✅ Banner de cookies detectado y aceptado.");
+        } catch (Exception e) {
+            System.out.println("ℹ️ No hay banner de cookies (o ya fue aceptado). Continuando...");
+        }
+
+        // 2. Ahora sí, esperamos a que el campo de búsqueda esté presente en el DOM
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(searchTextField)));
     }
 
     public void enterSearchCriteria(String criteria){
-        // Truco profesional: Escribir el texto y añadir "\n" (tecla ENTER) al final.
-        // Esto es mucho más fiable que buscar el botón y hacer clic, ya que evita 
-        // problemas de superposición de elementos o banners.
+        // Escribe el texto y pulsa ENTER
         write(searchTextField, criteria + "\n");
     }
 
