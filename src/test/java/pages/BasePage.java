@@ -19,7 +19,7 @@ public class BasePage {
     private static Actions action;
     
     // 1. SOLO declaramos la variable, NO le damos valor todavía
-    private static WebDriverWait wait; 
+    protected static WebDriverWait wait; 
   
     static {
         ChromeOptions chromeOptions = new ChromeOptions();
